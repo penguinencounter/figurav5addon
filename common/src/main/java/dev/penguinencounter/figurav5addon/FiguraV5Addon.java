@@ -2,6 +2,7 @@ package dev.penguinencounter.figurav5addon;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.figuramc.figura.parsers.BlockbenchModelParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,5 +13,9 @@ public final class FiguraV5Addon {
 
     public static void init() {
         LOGGER.info("FiguraV5Addon is here");
+    }
+
+    public static BlockbenchModelParser.ModelData adapt(ModelParseResult result) {
+        return new BlockbenchModelParser.ModelData(result.textures(), result.animationList(), result.modelNbt());
     }
 }

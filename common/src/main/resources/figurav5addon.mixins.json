@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "minVersion": "0.8",
   "client": [
+    "LocalAvatarLoaderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
