@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.nio.file.Path;
 
-@Mixin(value = LocalAvatarLoader.class, remap = false)
+@Mixin(value = LocalAvatarLoader.class)
 public abstract class LocalAvatarLoaderMixin {
     // 1.20
     @Inject(
