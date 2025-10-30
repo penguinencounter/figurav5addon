@@ -1,0 +1,28 @@
+{
+  "common": {
+    "fabric_loader": "0.15.10",
+    "fabric_api": "0.86.1",
+    "forge": "47.2.5",
+    "forge_min": "36",
+    "neoforge": "20.2.93",
+    "neoforge_range": "[20.2,)"
+  },
+  "variants": {
+    "fabric_forge": {
+      "minecraft_target": "1.20.1",
+      "fabric_range": ">=1.18.2 <=1.21.4",
+      "forge_range": "[1.18.2,1.21.4]",
+      "is_fabric": true,
+      "is_forge": true,
+      "is_neo": false
+    },
+    "neo": {
+      "minecraft_target": "1.20.2",
+      "fabric_range": ">=1.20.2 <=1.21.4",
+      "forge_range": "[1.20.2,1.21.4]",
+      "is_fabric": false,
+      "is_forge": false,
+      "is_neo": true
+    }
+  }
+}

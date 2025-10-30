@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "[${forge_minimum},)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "figurabadgetool"
+version = "${version}"
+displayName = "FiguraBadgeTool"
+authors = ""
+displayTest = "IGNORE_ALL_VERSION"
+description = '''
+
+'''
+#logoFile = ""
+
+[[dependencies.figurabadgetool]]
+modId = "forge"
+mandatory = true
+versionRange = "[${forge_minimum},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.figurabadgetool]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_range_forge}"
+ordering = "NONE"
+side = "BOTH"
+

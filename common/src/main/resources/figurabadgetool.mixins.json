@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "dev.penguinencounter.figurabadgetool.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "client": [
+    "FiguraHttpAPIMixin",
+    "FiguraNetworkAccessor",
+    "FiguraCommandsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

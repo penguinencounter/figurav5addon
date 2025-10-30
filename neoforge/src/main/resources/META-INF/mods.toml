@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "figurabadgetool"
+version = "${version}"
+displayName = "FiguraBadgeTool"
+authors = ""
+displayTest = "IGNORE_ALL_VERSION"
+description = '''
+
+'''
+#logoFile = ""
+
+[[dependencies.figurabadgetool]]
+modId = "neoforge"
+mandatory = true
+versionRange = "${neoforge_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.figurabadgetool]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_range_forge}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[mixins]]
+config = "figurabadgetool.mixins.json"

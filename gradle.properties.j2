@@ -1,0 +1,25 @@
+# Done to increase the memory available to Gradle.
+org.gradle.jvmargs=-Xmx4G
+org.gradle.parallel=true
+# Mod properties
+mod_version={{ version }}
+maven_group=dev.penguinencounter
+archives_name=figurabadgetool
+enabled_platforms={{ platforms }}
+is_fabric={{ is_fabric }}
+is_forge={{ is_forge }}
+is_neo={{ is_neo }}
+# Minecraft properties
+minecraft_version={{ minecraft_target }}
+minecraft_range_fabric={{ fabric_range }}
+minecraft_range_forge={{ forge_range }}
+# Dependencies
+figura=0.1.5
+fabric_loader_version=0.15.10
+fabric_api_version={{ fabric_api }}
+forge_version={{ forge }}
+forge_minimum={{ forge_min }}
+neoforge_version={{ neoforge }}
+neoforge_range={{ neoforge_range }}
+luaj=3.0.8
+nv_websocket=2.14

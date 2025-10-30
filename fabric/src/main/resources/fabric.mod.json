@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "figurabadgetool",
+  "version": "${version}",
+  "name": "FiguraBadgeTool",
+  "description": "backport of upcoming Figura badge self-service to 0.1.5",
+  "authors": [
+    "PenguinEncounter"
+  ],
+  "contact": {
+    "homepage": ""
+  },
+  "license": "MIT",
+  "icon": "assets/figurabadgetool/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.penguinencounter.figurabadgetool.fabric.client.FiguraBadgeToolFabricClient"
+    ]
+  },
+  "mixins": [
+    "figurabadgetool.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.10",
+    "minecraft": "${minecraft_range_fabric}",
+    "java": ">=8",
+    "figura": [
+      "~0.1.5",
+      "~0.1.5b+1.21.4"
+    ]
+  }
+}
