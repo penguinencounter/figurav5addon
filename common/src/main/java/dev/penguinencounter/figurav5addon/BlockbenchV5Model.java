@@ -4,23 +4,26 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.*;
-import dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.Collection;
+import dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.ModelFormat;
 import dev.penguinencounter.figurav5addon.BlockbenchParser2.Intermediary.AnimationRepresentation;
 import dev.penguinencounter.figurav5addon.BlockbenchParser2.Intermediary.CollectionRepresentation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import org.figuramc.figura.FiguraMod;
+import org.figuramc.figura.math.vector.FiguraVec3;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector2i;
-import org.joml.Vector3f;
 
 import java.util.*;
 import java.util.regex.Pattern;
 
+import static dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.*;
+import static dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.Collection;
+
 public class BlockbenchV5Model extends ModelFormat {
-    Vector2i resolution;
+    private static final FiguraVec3 ZERO = FiguraVec3.of(0, 0, 0);
+
+    IntPair resolution;
 
     List<Element> elements;
 
@@ -47,7 +50,7 @@ public class BlockbenchV5Model extends ModelFormat {
         if (!instance.formatVersion.startsWith("5.")) throw WRONG_FORMAT;
 
         JsonObject resolution = obj.getAsJsonObject("resolution");
-        instance.resolution = new Vector2i(
+        instance.resolution = new IntPair(
                 resolution.get("width").getAsInt(),
                 resolution.get("height").getAsInt()
         );
@@ -141,7 +144,7 @@ public class BlockbenchV5Model extends ModelFormat {
         CompoundTag tag = new CompoundTag();
 
         tag.putString("name", target.name);
-        BlockbenchCommonTypes.parseParent(target.name, tag);
+        parseParent(target.name, tag);
 
         ListTag chld = new ListTag();
         for (OutlinerItem item : outliner) {
@@ -167,8 +170,8 @@ public class BlockbenchV5Model extends ModelFormat {
         @Nullable Boolean visibility;
         @Nullable Boolean export;
 
-        @Nullable Vector3f origin;
-        @Nullable Vector3f rotation;
+        FiguraVec3 origin;
+        FiguraVec3 rotation;
 
         @Override
         public String getUUID() {
@@ -241,12 +244,12 @@ public class BlockbenchV5Model extends ModelFormat {
                 if (Boolean.FALSE.equals(group.visibility))
                     tag.putBoolean("vsb", false);
 
-                if (group.origin != null && !group.origin.equals(0, 0, 0))
-                    tag.put("piv", BlockbenchCommonTypes.vecToList(group.origin));
-                if (group.rotation != null && !group.rotation.equals(0, 0, 0))
-                    tag.put("rot", BlockbenchCommonTypes.vecToList(group.rotation));
+                if (group.origin != null && !group.origin.equals(ZERO))
+                    tag.put("piv", vecToList(group.origin));
+                if (group.rotation != null && !group.rotation.equals(ZERO))
+                    tag.put("rot", vecToList(group.rotation));
 
-                BlockbenchCommonTypes.parseParent(group.name, tag);
+                parseParent(group.name, tag);
 
                 ListTag chld = new ListTag();
                 for (OutlinerItem child : children) {
@@ -272,7 +275,7 @@ public class BlockbenchV5Model extends ModelFormat {
                     tag.put("anim", anim);
                 }
 
-                BlockbenchCommonTypes.attachCollections(context, group.uuid, tag);
+                attachCollections(context, group.uuid, tag);
 
                 return tag;
             }

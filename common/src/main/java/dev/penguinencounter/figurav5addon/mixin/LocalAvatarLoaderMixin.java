@@ -11,6 +11,7 @@ import org.figuramc.figura.avatar.local.LocalAvatarLoader;
 import org.figuramc.figura.parsers.BlockbenchModelParser;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Group;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 
 @Mixin(value = LocalAvatarLoader.class, remap = false)
 public abstract class LocalAvatarLoaderMixin {
+    // 1.20
     @Inject(
             method = "lambda$loadAvatar$2",
             at = @At(
@@ -25,7 +27,8 @@ public abstract class LocalAvatarLoaderMixin {
                     target = "Lorg/figuramc/figura/avatar/local/LocalAvatarLoader;loadModels(Ljava/nio/file/Path;Ljava/nio/file/Path;Lorg/figuramc/figura/parsers/BlockbenchModelParser;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/nbt/ListTag;Ljava/lang/String;)Lnet/minecraft/nbt/CompoundTag;"
             )
     )
-    private static void figurav5$createParser(Path finalPath, UserData target, CallbackInfo ci) {
+    @Group(name = "createParser", min = 1)
+    private static void figurav5$createParser1(Path finalPath, UserData target, CallbackInfo ci) {
         V5AddonState.activeParser.set(new BlockbenchParser2());
     }
 
@@ -49,6 +52,8 @@ public abstract class LocalAvatarLoaderMixin {
                 .parseModel(avatarFolder, sourceFile, json, modelName, folders);
         return FiguraV5Addon.adapt(result);
     }
+
+    // 1.20
     @Inject(
             method = "lambda$loadAvatar$2",
             at = @At(
@@ -57,7 +62,8 @@ public abstract class LocalAvatarLoaderMixin {
                     shift = At.Shift.AFTER
             )
     )
-    private static void figurav5$discardParser(Path finalPath, UserData target, CallbackInfo ci) {
+    @Group(name = "discardParser", min = 1)
+    private static void figurav5$discardParser1(Path finalPath, UserData target, CallbackInfo ci) {
         V5AddonState.activeParser.remove();
     }
 }
