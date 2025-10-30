@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "dev.penguinencounter.figurav5addon.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
     "LocalAvatarLoaderMixin"

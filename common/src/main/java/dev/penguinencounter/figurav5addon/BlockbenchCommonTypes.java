@@ -1,7 +1,7 @@
 package dev.penguinencounter.figurav5addon;
 
 import com.google.gson.*;
-import net.minecraft.core.UUIDUtil;
+import dev.penguinencounter.figurav5addon.availability.UUIDUtil;
 import net.minecraft.nbt.*;
 import org.figuramc.figura.math.vector.FiguraVec2;
 import org.figuramc.figura.math.vector.FiguraVec3;
