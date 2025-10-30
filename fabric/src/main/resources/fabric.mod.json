@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "figurabadgetool",
+  "id": "figurav5addon",
   "version": "${version}",
-  "name": "FiguraBadgeTool",
-  "description": "backport of upcoming Figura badge self-service to 0.1.5",
+  "name": "FiguraV5Addon",
+  "description": "Blockbench 5.0 model format support for Figura 0.1.5",
   "authors": [
     "PenguinEncounter"
   ],
@@ -11,15 +11,14 @@
     "homepage": ""
   },
   "license": "MIT",
-  "icon": "assets/figurabadgetool/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.penguinencounter.figurabadgetool.fabric.client.FiguraBadgeToolFabricClient"
+      "dev.penguinencounter.figurav5addon.fabric.client.FiguraV5AddonFabricClient"
     ]
   },
   "mixins": [
-    "figurabadgetool.mixins.json"
+    "figurav5addon.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.15.10",

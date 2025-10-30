@@ -10,7 +10,7 @@
   "variants": {
     "fabric_forge": {
       "minecraft_target": "1.20.1",
-      "fabric_range": ">=1.18.2 <=1.21.4",
+      "fabric_range": ">=1.18.2 <=1.21.8",
       "forge_range": "[1.18.2,1.21.4]",
       "is_fabric": true,
       "is_forge": true,
@@ -18,7 +18,7 @@
     },
     "neo": {
       "minecraft_target": "1.20.2",
-      "fabric_range": ">=1.20.2 <=1.21.4",
+      "fabric_range": ">=1.20.2 <=1.21.8",
       "forge_range": "[1.20.2,1.21.4]",
       "is_fabric": false,
       "is_forge": false,

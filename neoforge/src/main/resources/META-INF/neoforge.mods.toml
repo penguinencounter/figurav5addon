@@ -4,9 +4,9 @@ loaderVersion = "[1,)"
 license = "MIT"
 
 [[mods]]
-modId = "figurabadgetool"
+modId = "figurav5addon"
 version = "${version}"
-displayName = "FiguraBadgeTool"
+displayName = "FiguraV5Addon"
 authors = ""
 displayTest = "IGNORE_ALL_VERSION"
 description = '''
@@ -14,19 +14,27 @@ description = '''
 '''
 #logoFile = ""
 
-[[dependencies.figurabadgetool]]
+[[dependencies.figurav5addon]]
 modId = "neoforge"
 mandatory = true
 versionRange = "${neoforge_range}"
 ordering = "NONE"
 side = "CLIENT"
 
-[[dependencies.figurabadgetool]]
+[[dependencies.figurav5addon]]
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_range_forge}"
 ordering = "NONE"
 side = "CLIENT"
 
+[[dependencies.figurav5addon]]
+modId = "figura"
+mandatory = true
+versionRange = "0.1.5,0.1.5b"
+ordering = "NONE"
+side = "CLIENT"
+
+
 [[mixins]]
-config = "figurabadgetool.mixins.json"
+config = "figurav5addon.mixins.json"

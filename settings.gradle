@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'figurabadgetool'
+rootProject.name = 'figurav5addon'
 
 include 'common'
 if (is_fabric == "True") include 'fabric'
