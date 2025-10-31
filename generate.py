@@ -24,10 +24,12 @@ def get_sets() -> dict[str, dict]:
     with open('rules.json', encoding='utf-8') as f:
         data = json.load(f)
     variants: dict[str, dict] = data['variants']
-    for _, variant in variants.items():
-        variant.update(data['common'])
-        expand_variant(variant)
-    return variants
+    reified: dict[str, dict] = {}
+    for k, variant in variants.items():
+        reified[k] = data['common'].copy()
+        reified[k].update(variant)
+        expand_variant(reified[k])
+    return reified
 
 
 @click.group()

@@ -6,8 +6,9 @@
 # Done to increase the memory available to Gradle.
 org.gradle.jvmargs=-Xmx4G
 org.gradle.parallel=true
+org.gradle.caching=true
 # Mod properties
-mod_version={{ version }}
+mod_version={{ version }}{{ label }}
 maven_group=dev.penguinencounter
 archives_name=figurav5addon
 enabled_platforms={{ platforms }}
@@ -24,6 +25,7 @@ fabric_loader_version=0.15.10
 fabric_api_version={{ fabric_api }}
 forge_version={{ forge }}
 forge_minimum={{ forge_min }}
+forge_maximum={{ forge_max }}
 neoforge_version={{ neoforge }}
 neoforge_range={{ neoforge_range }}
 luaj=3.0.8
