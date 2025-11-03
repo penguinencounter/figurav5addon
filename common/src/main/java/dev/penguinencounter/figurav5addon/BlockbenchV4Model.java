@@ -16,6 +16,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+import static dev.penguinencounter.figurav5addon.availability.Polyfills.CompoundTag_getBoolean;
+
 public class BlockbenchV4Model extends ModelFormat {
     private static final FiguraVec3 ZERO = FiguraVec3.of(0, 0, 0);
 
@@ -219,7 +221,7 @@ public class BlockbenchV4Model extends ModelFormat {
                         if (childTag != null) {
                             // do not propagate 'vsb' tag for children with same property
                             // this causes them to be "overriding" their parents' visibility
-                            if (childTag.contains("vsb") && Objects.equals(visibility, childTag.getBoolean("vsb")))
+                            if (childTag.contains("vsb") && Objects.equals(visibility, CompoundTag_getBoolean(childTag, "vsb")))
                                 childTag.remove("vsb");
                             chld.add(childTag);
                         }

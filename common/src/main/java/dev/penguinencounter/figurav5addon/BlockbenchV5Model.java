@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import static dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.*;
 import static dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.Collection;
+import static dev.penguinencounter.figurav5addon.availability.Polyfills.CompoundTag_getBoolean;
 
 public class BlockbenchV5Model extends ModelFormat {
     private static final FiguraVec3 ZERO = FiguraVec3.of(0, 0, 0);
@@ -255,7 +256,7 @@ public class BlockbenchV5Model extends ModelFormat {
                 for (OutlinerItem child : children) {
                     CompoundTag childTag = child.toNBT(context);
                     if (childTag != null) {
-                        if (childTag.contains("vsb") && Objects.equals(group.visibility, childTag.getBoolean("vsb")))
+                        if (childTag.contains("vsb") && Objects.equals(group.visibility, CompoundTag_getBoolean(childTag, "vsb")))
                             childTag.remove("vsb");
                         chld.add(childTag);
                     }
