@@ -1,3 +1,10 @@
+## 1.1.1
+
+### Parser Changes
+- Parity with upstream PR.
+- Might reduce your avatar size by a few bytes.
+  - fixed detection of default bezier timing elision
+
 ## 1.1.0
 
 ### Loading Errors
