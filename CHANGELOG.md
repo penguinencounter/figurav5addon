@@ -1,3 +1,10 @@
+## 1.1.2
+
+### Parser Changes
+- Further small size improvements
+  - Discard `chld` tag for parts with no children
+- Prevented load from failing if vectors contain things that aren't numbers, including `null` (fallback to `0`)
+
 ## 1.1.1
 
 ### Parser Changes
