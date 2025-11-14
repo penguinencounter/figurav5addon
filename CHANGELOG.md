@@ -1,3 +1,12 @@
+## 1.2.0-beta1
+
+### Avatar Metadata
+- added `loadOptions` object to `avatar.json`:
+  - key `boolean` `partsWithUUIDs`, when set to true (default false) enables exporting parts with UUIDs
+
+### Parser Changes
+- deterministic output is back!
+
 ## 1.1.2
 
 ### Parser Changes
