@@ -27,7 +27,8 @@ public abstract class FiguraModelPartMixin implements FiguraModelPartOverlay {
 
     @Inject(
             method = "copy",
-            at = @At("RETURN")
+            at = @At("RETURN"),
+            remap = false
     )
     private void figurav5$copyInherit(String name,
                                       CallbackInfoReturnable<FiguraModelPart> cir,

@@ -68,7 +68,8 @@ public abstract class LocalAvatarLoaderMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lorg/figuramc/figura/parsers/BlockbenchModelParser;parseModel(Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/figuramc/figura/parsers/BlockbenchModelParser$ModelData;"
-            )
+            ),
+            remap = false
     )
     private static BlockbenchModelParser.ModelData figurav5$replaceParser(
             BlockbenchModelParser instance,
