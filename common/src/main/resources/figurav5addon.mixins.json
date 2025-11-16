@@ -5,7 +5,9 @@
   "minVersion": "0.8",
   "client": [
     "LocalAvatarLoaderMixin",
-    "AvatarMetadataMixin"
+    "AvatarMetadataMixin",
+    "FiguraModelPartReaderMixin",
+    "FiguraModelPartMixin"
   ],
   "injectors": {
     "defaultRequire": 1

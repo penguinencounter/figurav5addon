@@ -7,6 +7,7 @@ import com.google.gson.JsonParseException;
 import dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.ModelFormat;
 import dev.penguinencounter.figurav5addon.BlockbenchParser2.Intermediary.AnimationRepresentation;
 import dev.penguinencounter.figurav5addon.BlockbenchParser2.Intermediary.CollectionRepresentation;
+import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -126,9 +127,8 @@ public class BlockbenchV5Model extends ModelFormat {
             return source;
         }
         // if it is truly an expression, then this will work
-        // otherwise this is definitely invalid syntax, so we put a label on it
-        // in case it breaks
-        return String.format("-(%s)--v5", source);
+        // otherwise... oops?
+        return String.format("-(%s)", source);
     }
 
     @Override
@@ -160,6 +160,10 @@ public class BlockbenchV5Model extends ModelFormat {
             cn.add(StringTag.valueOf(collRep.name));
         }
         tag.put("cn", cn);
+
+        // FORMAT major << 4 + minor (i.e. 0xXY)
+        // 5.0 -> 0x50
+        tag.put("_v", ByteTag.valueOf(FORMAT_V5));
 
         return tag;
     }
