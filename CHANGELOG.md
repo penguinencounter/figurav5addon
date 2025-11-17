@@ -1,3 +1,13 @@
+## 1.2.0
+
+### Parser Changes
+- v5 models now include a `_v` tag set to 2.
+
+### Features
+- Keyframes now have better script names.
+- Syntax errors in keyframes are a lot better.
+- Inform users about keyframe corruption.
+
 ## 1.2.0-beta1
 
 ### Avatar Metadata
