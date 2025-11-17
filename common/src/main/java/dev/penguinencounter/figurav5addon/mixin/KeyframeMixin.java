@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static dev.penguinencounter.figurav5addon.BlockbenchCommonTypes.FORMAT_V5;
 import static dev.penguinencounter.figurav5addon.KeyframeHelpers.trimErrorMessage;
 
-@Mixin(Keyframe.class)
+@Mixin(value = Keyframe.class, remap = false)
 public abstract class KeyframeMixin {
     @Unique
     @Nullable
@@ -95,8 +95,7 @@ public abstract class KeyframeMixin {
                     value = "FIELD",
                     target = "Lorg/figuramc/figura/avatar/Avatar;luaRuntime:Lorg/figuramc/figura/lua/FiguraLuaRuntime;",
                     ordinal = 0
-            ),
-            remap = false
+            )
     )
     private void figurav5$enhanceErrorMessage(String data,
                                               float delta,

@@ -16,7 +16,6 @@ import org.figuramc.figura.model.FiguraModelPart;
 import org.figuramc.figura.model.FiguraModelPartReader;
 import org.figuramc.figura.model.rendering.texture.FiguraTextureSet;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -30,11 +29,11 @@ public class FiguraModelPartReaderMixin {
             at = @At("HEAD")
     )
     private static void figurav5$getFormatVersion(Avatar owner,
-                                      CompoundTag partCompound,
-                                      List<FiguraTextureSet> textureSets,
-                                      boolean smoothNormals,
-                                      CallbackInfoReturnable<FiguraModelPart> cir,
-                                      @Share("formatVersion") LocalByteRef formatVersion) {
+                                                  CompoundTag partCompound,
+                                                  List<FiguraTextureSet> textureSets,
+                                                  boolean smoothNormals,
+                                                  CallbackInfoReturnable<FiguraModelPart> cir,
+                                                  @Share("formatVersion") LocalByteRef formatVersion) {
         Byte inheritedFormatVersion = locals.ModelPart$formatVersion.get();
         formatVersion.set(
                 partCompound.contains("_v") ? partCompound.getByte("_v") :
@@ -66,7 +65,8 @@ public class FiguraModelPartReaderMixin {
                     value = "MIXINEXTRAS:EXPRESSION"
             )
     )
-    private static FiguraModelPart figurav5$setVersion(FiguraModelPart original, @Share("formatVersion") LocalByteRef formatVersion) {
+    private static FiguraModelPart figurav5$setVersion(FiguraModelPart original,
+                                                       @Share("formatVersion") LocalByteRef formatVersion) {
         ((FiguraModelPartOverlay) original).figurav5$setFormatVersion(formatVersion.get());
         return original;
     }
@@ -87,8 +87,8 @@ public class FiguraModelPartReaderMixin {
     @Inject(
             method = "read",
             at = @At(
-                    value = "INVOKE",
-                    target = "Lorg/figuramc/figura/animation/Keyframe;<init>(Lorg/figuramc/figura/avatar/Avatar;Lorg/figuramc/figura/animation/Animation;FLorg/figuramc/figura/animation/Interpolation;Lcom/mojang/datafixers/util/Pair;Lcom/mojang/datafixers/util/Pair;Lorg/figuramc/figura/math/vector/FiguraVec3;Lorg/figuramc/figura/math/vector/FiguraVec3;Lorg/figuramc/figura/math/vector/FiguraVec3;Lorg/figuramc/figura/math/vector/FiguraVec3;)V"
+                    value = "NEW",
+                    target = "(Lorg/figuramc/figura/avatar/Avatar;Lorg/figuramc/figura/animation/Animation;FLorg/figuramc/figura/animation/Interpolation;Lcom/mojang/datafixers/util/Pair;Lcom/mojang/datafixers/util/Pair;Lorg/figuramc/figura/math/vector/FiguraVec3;Lorg/figuramc/figura/math/vector/FiguraVec3;Lorg/figuramc/figura/math/vector/FiguraVec3;Lorg/figuramc/figura/math/vector/FiguraVec3;)Lorg/figuramc/figura/animation/Keyframe;"
             )
     )
     private static void figurav5$kfMetadata(Avatar owner,
