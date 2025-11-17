@@ -32,7 +32,7 @@ public abstract class LocalAvatarLoaderMixin {
             )
     )
     private static void figurav5$createParser(Path finalPath, UserData target, CallbackInfo ci) {
-        locals.activeParser.set(new BlockbenchParser2());
+        locals.LocalAvatarLoader$activeParser.set(new BlockbenchParser2());
     }
 
     @Inject(
@@ -60,7 +60,7 @@ public abstract class LocalAvatarLoaderMixin {
         } else {
             _meta = IOUtils.readFile(avatarJson);
         }
-        locals.earlyMetadata.set(AvatarMetadataParser.read(_meta));
+        locals.LocalAvatarLoader$earlyMetadata.set(AvatarMetadataParser.read(_meta));
     }
 
     @WrapOperation(
@@ -80,14 +80,14 @@ public abstract class LocalAvatarLoaderMixin {
             String folders,
             Operation<BlockbenchModelParser.ModelData> original
     ) throws Exception {
-        ModelParseResult result = locals.activeParser.get()
+        ModelParseResult result = locals.LocalAvatarLoader$activeParser.get()
                 .parseModel(
                         avatarFolder,
                         sourceFile,
                         json,
                         modelName,
                         folders,
-                        ((AvatarMetadataOverlay) locals.earlyMetadata.get()).figurav5$getLoadOptions()
+                        ((AvatarMetadataOverlay) locals.LocalAvatarLoader$earlyMetadata.get()).figurav5$getLoadOptions()
                 );
         return FiguraV5Addon.adapt(result);
     }
@@ -102,7 +102,7 @@ public abstract class LocalAvatarLoaderMixin {
             )
     )
     private static void figurav5$clean(Path finalPath, UserData target, CallbackInfo ci) {
-        locals.earlyMetadata.remove();
-        locals.activeParser.remove();
+        locals.LocalAvatarLoader$earlyMetadata.remove();
+        locals.LocalAvatarLoader$activeParser.remove();
     }
 }

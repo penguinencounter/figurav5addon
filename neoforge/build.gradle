@@ -25,6 +25,9 @@ dependencies {
     forgeRuntimeLibrary(modLocalRuntime("com.github.FiguraMC.luaj:luaj-jse:$luaj-figura"))
     forgeRuntimeLibrary(modLocalRuntime("com.neovisionaries:nv-websocket-client:$nv_websocket"))
 
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:$mixinextras"))
+    implementation(include("io.github.llamalad7:mixinextras-neoforge:$mixinextras"))
+
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowCommon(project(path: ':common', configuration: 'transformProductionNeoForge')) { transitive false }
 }
@@ -51,5 +54,5 @@ shadowJar {
 }
 
 remapJar {
-    input.set shadowJar.archiveFile
+    inputFile.set shadowJar.archiveFile
 }
