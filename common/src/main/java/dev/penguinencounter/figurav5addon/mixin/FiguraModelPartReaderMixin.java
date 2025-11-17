@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalByteRef;
 import dev.penguinencounter.figurav5addon.BlockbenchCommonTypes;
+import dev.penguinencounter.figurav5addon.availability.Polyfills;
 import dev.penguinencounter.figurav5addon.duck.FiguraModelPartOverlay;
 import dev.penguinencounter.figurav5addon.duck.locals;
 import net.minecraft.nbt.CompoundTag;
@@ -36,7 +37,7 @@ public class FiguraModelPartReaderMixin {
                                                   @Share("formatVersion") LocalByteRef formatVersion) {
         Byte inheritedFormatVersion = locals.ModelPart$formatVersion.get();
         formatVersion.set(
-                partCompound.contains("_v") ? partCompound.getByte("_v") :
+                partCompound.contains("_v") ? Polyfills.CompoundTag_getByte(partCompound, "_v") :
                         inheritedFormatVersion == null ? BlockbenchCommonTypes.FORMAT_V4 : inheritedFormatVersion
         );
     }

@@ -19,4 +19,17 @@ public class Polyfills {
                 key
         ));
     }
+    public static byte CompoundTag_getByte(CompoundTag $this, String key) {
+        Object result = $this.getByte(key);
+        // on older versions, this is just a boolean
+        if (result instanceof Byte) return (Byte) result;
+        if (result instanceof Optional<?>) return ((Optional<Byte>) result).get();
+        throw new IllegalStateException(String.format(
+                "Unexpected return type for getByte. This is a bug in figurav5addon; please report it and include your game log!\n" +
+                        "result type is %s, $this is %s, key is '%s'",
+                result.getClass().getName(),
+                $this.getClass().getName(),
+                key
+        ));
+    }
 }
