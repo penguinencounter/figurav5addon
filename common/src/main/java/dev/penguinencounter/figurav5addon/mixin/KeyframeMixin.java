@@ -50,25 +50,6 @@ public abstract class KeyframeMixin {
     @Final
     private String chunkName;
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/lang/Object;<init>()V", shift = At.Shift.AFTER))
-    private void figurav5$additionalCtor(Avatar owner,
-                                         Animation animation,
-                                         float time,
-                                         Interpolation interpolation,
-                                         Pair<FiguraVec3, String[]> a,
-                                         Pair<FiguraVec3, String[]> b,
-                                         FiguraVec3 bezierLeft,
-                                         FiguraVec3 bezierRight,
-                                         FiguraVec3 bezierLeftTime,
-                                         FiguraVec3 bezierRightTime,
-                                         CallbackInfo ci) {
-        figurav5$part = locals.Keyframe$part.get();
-        figurav5$channel = locals.Keyframe$channel.get();
-
-        locals.Keyframe$part.remove();
-        locals.Keyframe$channel.remove();
-    }
-
     // make the chunk name not useless
     @Definition(id = "getName", method = "Lorg/figuramc/figura/animation/Animation;getName()Ljava/lang/String;")
     @Definition(id = "time", local = @Local(type = float.class, argsOnly = true))
@@ -79,6 +60,12 @@ public abstract class KeyframeMixin {
             at = @At("MIXINEXTRAS:EXPRESSION")
     )
     private String figurav5$betterChunkName(String original) {
+        figurav5$part = locals.Keyframe$part.get();
+        figurav5$channel = locals.Keyframe$channel.get();
+
+        locals.Keyframe$part.remove();
+        locals.Keyframe$channel.remove();
+
         if (figurav5$part == null || figurav5$channel == null) return original;
         // note: scripts rely on the animation name followed by "keyframe" being at the start
         return animation.getName() +
