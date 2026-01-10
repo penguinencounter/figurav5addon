@@ -12,7 +12,7 @@
   },
   "variants": {
     "fabric_forge_1": {
-      "_comment": "Fabric: all versions. Forge: 1.18.2 to 1.20.4 (srg changes block beyond that)",
+      "_comment": "Fabric: 1.18.2 to 1.21.4. Forge: 1.18.2 to 1.20.4 (srg changes block beyond that)",
       "minecraft_target": "1.20.1",
       "fabric_range": ">=1.18.2 <=1.21.4",
       "forge_range": "[1.18.2,1.20.6)",
@@ -37,7 +37,7 @@
     },
     "fabric_2": {
       "minecraft_target": "1.21.5",
-      "fabric_range": ">=1.21.5 <=1.21.8",
+      "fabric_range": ">=1.21.5 <=1.21.10",
       "forge_range": "na",
       "is_fabric": true,
       "is_forge": false,
