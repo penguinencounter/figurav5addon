@@ -46,6 +46,17 @@
       "label": "+split3",
       "figura_is_snapshot": true
     },
+    "fabric_3": {
+      "minecraft_target": "1.21.11",
+      "fabric_range": "1.21.11",
+      "forge_range": "na",
+      "is_fabric": true,
+      "is_forge": false,
+      "is_neo": false,
+      "fabric_api": "0.141.3",
+      "label": "+split4",
+      "figura_is_snapshot": true
+    },
     "neo": {
       "minecraft_target": "1.20.2",
       "fabric_range": "na",
