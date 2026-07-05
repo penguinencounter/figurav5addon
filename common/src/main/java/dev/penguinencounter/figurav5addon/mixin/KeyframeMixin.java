@@ -3,7 +3,10 @@ package dev.penguinencounter.figurav5addon.mixin;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.datafixers.util.Pair;
 import dev.penguinencounter.figurav5addon.duck.FiguraModelPartOverlay;
@@ -17,12 +20,14 @@ import org.figuramc.figura.math.vector.FiguraVec3;
 import org.figuramc.figura.model.FiguraModelPart;
 import org.jetbrains.annotations.Nullable;
 import org.luaj.vm2.LuaError;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -46,27 +51,16 @@ public abstract class KeyframeMixin {
     @Final
     private float time;
 
-    @Shadow
-    @Final
-    private String chunkName;
-
     // make the chunk name not useless
-    @Definition(id = "getName", method = "Lorg/figuramc/figura/animation/Animation;getName()Ljava/lang/String;")
-    @Definition(id = "time", local = @Local(type = float.class, argsOnly = true))
-    @Definition(id = "animation", local = @Local(type = Animation.class, argsOnly = true))
-    @Expression("animation.getName() + ' keyframe (' + time + 's)'")
-    @ModifyExpressionValue(
-            method = "<init>",
-            at = @At("MIXINEXTRAS:EXPRESSION")
-    )
-    private String figurav5$betterChunkName(String original) {
+    @WrapMethod(method = "generateChunkName")
+    private String figurav5$betterChunkName(int idx, Operation<String> original) {
         figurav5$part = locals.Keyframe$part.get();
         figurav5$channel = locals.Keyframe$channel.get();
 
         locals.Keyframe$part.remove();
         locals.Keyframe$channel.remove();
 
-        if (figurav5$part == null || figurav5$channel == null) return original;
+        if (figurav5$part == null || figurav5$channel == null) return original.call(idx);
         // note: scripts rely on the animation name followed by "keyframe" being at the start
         return animation.getName() +
                 " keyframe (part '" +
@@ -77,20 +71,33 @@ public abstract class KeyframeMixin {
     }
 
     @Inject(
-            method = "parseStringData",
+            method = "compile",
+            at = @At(value = "INVOKE", target = "Lorg/figuramc/figura/avatar/Avatar;loadScript(Ljava/lang/String;Ljava/lang/String;)Lorg/luaj/vm2/LuaValue;", ordinal = 1)
+    )
+    private void figurav5$captureExcept1(String source,
+                                         String chunkName,
+                                         CallbackInfoReturnable<Keyframe.KeyframeValue> cir,
+                                         @Share("eS") LocalRef<LuaError> eShare,
+                                         @Local(name = "e") LuaError e) {
+        eShare.set(e);
+    }
+
+    @Inject(
+            method = "compile",
             at = @At(
                     value = "FIELD",
                     target = "Lorg/figuramc/figura/avatar/Avatar;luaRuntime:Lorg/figuramc/figura/lua/FiguraLuaRuntime;",
-                    ordinal = 0
-            )
+                    ordinal = 0,
+                    opcode = Opcodes.GETFIELD)
     )
-    private void figurav5$enhanceErrorMessage(String data,
-                                              float delta,
-                                              CallbackInfoReturnable<Float> cir,
-                                              @Local(name = "ignored2") Exception exprExc,
-                                              @Local(name = "e") LocalRef<Exception> stmtExc) {
-        Exception stmtExcUnder = stmtExc.get();
-        if (!(exprExc instanceof LuaError)) return;
+    private void figurav5$enhanceErrorMessage(String source,
+                                              String chunkName,
+                                              CallbackInfoReturnable<Keyframe.KeyframeValue> cir,
+                                              @Share("eS") LocalRef<LuaError> eShare,
+                                              @Local(name = "e3") LocalRef<Exception> e3) {
+        Exception stmtExcUnder = e3.get();
+        LuaError e = eShare.get();
+        if (!(e instanceof LuaError)) return;
         if (!(stmtExcUnder instanceof LuaError)) return;
 
         String trailers = "";
@@ -102,7 +109,7 @@ public abstract class KeyframeMixin {
                     "§6 as well as the X value on position, need to be negated.§r";
         }
         //noinspection TextBlockMigration
-        stmtExc.set(new LuaError(String.format(
+        e3.set(new LuaError(String.format(
                 "Syntax error in keyframe [%s]:\n\n" +
                         "Not a valid expression, because:\n%s\n" +
                         "Not a valid block, because:\n%s\n\n" +
@@ -110,9 +117,9 @@ public abstract class KeyframeMixin {
                         "%s" +
                         "%s",
                 chunkName,
-                trimErrorMessage(exprExc.getMessage()),
+                trimErrorMessage(e.getMessage()),
                 trimErrorMessage(stmtExcUnder.getMessage()),
-                data,
+                source,
                 trailers
         )));
     }
