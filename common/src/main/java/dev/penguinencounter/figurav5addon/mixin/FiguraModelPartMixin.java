@@ -27,12 +27,24 @@ public abstract class FiguraModelPartMixin implements FiguraModelPartOverlay {
 
     @Inject(
             method = "copy",
-            at = @At("RETURN"),
+            at = @At(value = "RETURN", ordinal = 1),
             remap = false
     )
-    private void figurav5$copyInherit(String name,
+    private void figurav5$copyInherit(Object obj,
+                                      Boolean deepP,
                                       CallbackInfoReturnable<FiguraModelPart> cir,
-                                      @Local FiguraModelPart result) {
+                                      @Local(name = "result") FiguraModelPart result) {
+        ((FiguraModelPartOverlay) result).figurav5$setFormatVersion(figurav5$getFormatVersion());
+    }
+
+    @Inject(
+            method = "deepCopy",
+            at = @At(value = "RETURN"),
+            remap = false
+    )
+    private void figurav5$copyInherit2(String name,
+                                       CallbackInfoReturnable<FiguraModelPart> cir,
+                                       @Local(name = "result") FiguraModelPart result) {
         ((FiguraModelPartOverlay) result).figurav5$setFormatVersion(figurav5$getFormatVersion());
     }
 }

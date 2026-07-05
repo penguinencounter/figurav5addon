@@ -49,6 +49,8 @@ subprojects {
             name "NeoForge Releases"
             url 'https://maven.neoforged.net/releases/'
         }
+
+        mavenLocal()
     }
 
     dependencies {
